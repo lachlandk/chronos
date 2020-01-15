@@ -1,6 +1,10 @@
 (function (root, factory) {
-	root.Chronos = factory();
-}(window, function () {
+	if (typeof module === 'object' && module.exports) {
+		module.exports = factory();
+	} else {
+		root.Chronos = factory();
+	}
+}(typeof self !== "undefined" ? self : this, function () {
 	return {
 		intervalTimer: function (callback, interval) {
 			return new function (callback, interval) {
