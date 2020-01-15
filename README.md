@@ -1,2 +1,2 @@
-# chronos
- Simple but accurate Javascript timers
+# Chronos.js
+ Simple but accurate Javascript timers.
