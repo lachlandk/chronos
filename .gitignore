@@ -1,2 +1,5 @@
 # Intellij IDE Settings
 /.idea
+
+# Testing
+test.*
