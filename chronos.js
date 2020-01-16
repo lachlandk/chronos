@@ -12,7 +12,7 @@
 				this.interval = interval;
 				this.ideal_time = interval;
 				this.running = true;
-				this.start_time = new Date().getTime();
+				this.startTime = new Date().getTime();
 				setTimeout(function (timerInstance) {
 					timerInstance.tick();
 				}, this.interval, this);
@@ -20,8 +20,8 @@
 				this.tick = function () {
 					if (this.running) {
 						this.callback();
-						let time_elapsed = new Date().getTime() - this.start_time,
-							delta = this.ideal_time - time_elapsed;
+						let timeElapsed = new Date().getTime() - this.startTime,
+							delta = this.ideal_time - timeElapsed;
 						setTimeout(function (timerInstance) {
 							timerInstance.tick();
 						}, this.interval + delta, this);
