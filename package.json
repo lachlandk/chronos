@@ -1,5 +1,5 @@
 {
-	"name": "chronos",
+	"name": "@lachlandk/chronos",
 	"version": "0.5.0",
 	"description": "Simple but accurate Javascript timers.",
 	"main": "chronos.js",
