@@ -8,47 +8,42 @@
 	return {
 		intervalTimer: function (callback, interval) {
 			return new function (callback, interval) {
-				this.callback = callback;
-				this.interval = interval;
-				this.ideal_time = interval;
-				this.running = true;
-				this.startTime = new Date().getTime();
-				setTimeout(function (timerInstance) {
-					timerInstance.tick();
-				}, this.interval, this);
-
-				this.tick = function () {
-					if (this.running) {
-						this.callback();
-						let timeElapsed = new Date().getTime() - this.startTime,
-							delta = this.ideal_time - timeElapsed;
-						setTimeout(function (timerInstance) {
-							timerInstance.tick();
-						}, this.interval + delta, this);
-						this.ideal_time += this.interval;
-					}
-				};
+				let ideal_time = interval,
+					running = true,
+					startTime = new Date().getTime(),
+					tick = function () {
+						if (running) {
+							callback();
+							let timeElapsed = new Date().getTime() - startTime,
+								delta = ideal_time - timeElapsed;
+							setTimeout(tick, interval + delta);
+							ideal_time += interval;
+						}
+					};
 
 				this.clear = function () {
-					this.running = false;
-				}
+					running = false;
+				};
+
+				setTimeout(tick, interval);
 			}(callback, interval);
 		},
 
 		stopWatch: function () {
 			return new function () {
-				this._startTime = new Date().getTime();
+				let startTime = new Date().getTime();
+
 				this.time = function (units = null) {
 					if (units === null) {
-						return new Date().getTime() - this._startTime;
+						return new Date().getTime() - startTime;
 					} else if (typeof units === "string") {
 						switch (units) {
 							case "seconds":
-								return (new Date().getTime() - this._startTime) / 1000;
+								return (new Date().getTime() - startTime) / 1000;
 							case "minutes":
-								return (new Date().getTime() - this._startTime) / (1000 * 60);
+								return (new Date().getTime() - startTime) / (1000 * 60);
 							case "hours":
-								return (new Date().getTime() - this._startTime) / (1000 * 3600);
+								return (new Date().getTime() - startTime) / (1000 * 3600);
 						}
 					}
 				};
